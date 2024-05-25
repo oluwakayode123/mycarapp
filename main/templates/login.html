@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block header %} {% include "header.html" %} {% endblock header %}
+{% block carousel %} {% include "carousel.html" %} {% endblock carousel %}
+{% block content %} 
+
+
+<!-- content  -->
+<div class="container mt-5 mb-5" data-aos="fade-up">
+  <div class="row">
+    <h2 class="text-center title">Login</h2>
+      <div class="col-12 register">
+        <form action="{% url 'signin' %}" method="POST">
+          {% csrf_token %}
+
+
+              <div class="mb-3" >
+                  <label for="exampleInputEmail1" class="form-label">Username</label>
+                  <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp">            
+                </div>
+              
+              
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Password</label>
+                  <input type="password" id="" cols="30" rows="10" name="password" class="form-control"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+      </div>
+
+     
+
+  </div>
+</div>
+
+<!-- product content end -->
+
+
+{% endblock content %}
+{% block footer %} {% include "footer.html" %} {% endblock footer %}

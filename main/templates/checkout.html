@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block header %} {% include "header.html" %} {% endblock header %}
+{% block carousel %} {% include "carousel.html" %} {% endblock carousel %}
+{% block content %} 
+
+
+<!-- content  -->
+<div class="container mt-5 mb-5">
+    <div class="row">
+    <div class="col-12 col-md-6 cart">
+      <table>
+        <h1 class="text-center mb-3">Summary</h1>
+        <thead> 
+          <th>Item</th>
+          <th>Brand</th>
+          <th>Color</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+        </thead>
+        <tbody>
+
+        
+          {% for item in cart %}
+          <tr class="item">
+            <td><img src="{{item.car.carimg.url}}" alt="" style="height: 80px;"></td>
+            <td>{{item.car.type}}</td>
+            <td>{{item.car.color}}</td>
+            <td>{{item.quantity}}</td>
+            <td>N{{item.amount|floatformat:2|intcomma}}</td>
+          </tr>
+          {% endfor %}
+  
+      
+    
+ 
+          <tr class="total">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total =</td>
+            <td>N{{total|floatformat:2|intcomma}}</td>
+          </tr>
+  
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="col-12 col-md-6 pt-5 checkout">
+      <form action="{% url 'pay' %}" method="POST"> 
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Firstname</label>
+          <input type="text" name="first_name" value="{{userprof.first_name}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">            
+        </div>
+  
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Lastname</label>
+            <input type="text" name="last_name" value="{{userprof.last_name}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">            
+          </div>
+  
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Phone </label>
+            <input type="text" name="phone" value="{{userprof.phone}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> 
+        </div>
+        
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Address </label>
+            <input type="text" name="address" value="{{userprof.address}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> 
+        </div>
+  
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="email" name="email" value="{{userprof.email}}" id="" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+  
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Additional Information</label>
+          <input type="hidden" name="total" value="{{total}}">
+          <textarea name="add_info" id="" cols="30" rows="10" class="form-control"></textarea>
+      </div>
+      
+        <button type="submit" class="btn btn-primary">Pay Now</button>
+      </form>
+  
+    </div>
+    </div>
+  </div>
+  <!-- cart content end -->
+
+
+{% endblock content %}
+{% block footer %} {% include "footer.html" %} {% endblock footer %}

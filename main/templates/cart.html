@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block header %} {% include "header.html" %} {% endblock header %}
+{% block carousel %} {% include "carousel.html" %} {% endblock carousel %}
+{% block content %} 
+
+
+<!-- content  -->
+<div class="container mt-5 mb-5">
+    <h1 class="text-center title mb-5">Your Shop Cart</h1>
+    <div class="row">
+    <div class="col-12 cart">
+      <table>
+        <thead>
+          <th>Action</th>
+          <th>Item</th>
+          <th>Brand</th>
+          <th>Price</th>
+          <th>Color</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+        </thead>
+        <tbody>
+
+            {% for item in cart %}
+        
+        <tr class="item">
+                <form Action="{% url "delete" %}" method="POST"> 
+                 {% csrf_token %}
+                 <td>
+                   <input type="hidden" name="delid" value="{{item.id}}">
+                   <button type="submit"><i class="bi bi-trash3"></i></button>
+                 </td>
+                </form>
+       
+                
+          
+          <td><img src="{{item.car.carimg.url}}" alt="" style="height: 80px;"></td>
+          <td> {{item.car.type}} </td>
+          <td> N{{item.price|floatformat:2|intcomma}} </td>
+          <td> {{item.car.color}} </td>
+
+          <form action="{% url "update" %}" method="POST">
+            {% csrf_token %}
+            <td>
+              <input type="number" min="1" max="30" name="quant" value="{{item.quantity}}">
+              <input type="hidden" name="quantid" value="{{item.id}}">
+              <button type="submit" class="btn btn-success">update</button>
+            </td>
+          </form>
+
+          <td>N {{item.amount|floatformat:2|intcomma}} </td>
+        </tr>
+
+      {% endfor %}
+
+     
+          <tr class="subtot">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Subtotal =</td>
+            <td>N{{subtotal|floatformat:2|intcomma}}</td>
+          </tr>
+  
+          <tr class="subtot">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Vat =</td>
+            <td>N{{vat|floatformat:2|intcomma}}</td>
+          </tr>
+  
+          <tr class="subtot">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total Amount =</td>
+            <td>N{{total|floatformat:2|intcomma}}</td>
+          </tr>
+  
+          <tr class="cartbut">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="{% url "checkout" %}"><button class="btn btn-success">checkout</button></a></td>  
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+  <!-- cart content end -->
+  
+
+{% endblock content %}
+{% block footer %} {% include "footer.html" %} {% endblock footer %}

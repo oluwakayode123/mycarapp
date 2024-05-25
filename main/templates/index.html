@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block header %} {% include "header.html" %} {% endblock header %}
+{% block carousel %} {% include "carousel.html" %} {% endblock carousel %}
+{% block content %} 
+
+<div class="container mb-5 home">
+    <h1 class="text-center pt-5 mb-4 title" data-aos="fade-up">Welcome to TOSHDEV CARS</h1>
+    
+    {% for item in categ %}
+
+    <div class="card mb-3 mt-5" data-aos="fade-up">
+        <div class="row g-0">
+          <div class="col-md-6 motor">
+            <img src="{{ item.pix.url }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title"> {{ item.brand.title }} </h5>
+              <p class="card-text"> {{ item.description }} </p>
+             <a href=""><button class="btn btn-success">View More</button></a>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+     {% endfor %}
+
+</div>
+
+{% endblock content %}
+{% block footer %} {% include "footer.html" %} {% endblock footer %}
